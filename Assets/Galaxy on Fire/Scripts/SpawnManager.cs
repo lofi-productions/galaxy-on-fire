@@ -13,17 +13,27 @@ public class SpawnManager : MonoBehaviour
     private GameObject[] _powerups;
     void Start()
     {
-        while(true)
-        {
-
-        }
-        
+        StartCoroutine(EnemySpawnRoutine());
+        StartCoroutine(PowerupSpawnRoutine());
     }
 
-
-    // Update is called once per frame
-    void Update()
+    IEnumerator EnemySpawnRoutine()
     {
-        
+        while(true)
+        {
+            Instantiate(_enemyShipPrefab, new Vector3(Random.Range(-7.91f, 7.91f), 7, 0), Quaternion.identity);
+            yield return new WaitForSeconds(5.0f);
+        }
+
+    }
+
+    IEnumerator PowerupSpawnRoutine()
+    {
+        while (true)
+        {
+            int randomPowerup = Random.Range(0, 3);
+            Instantiate(_powerups[randomPowerup], new Vector3(Random.Range(-7.91f, 7.91f), 7, 0), Quaternion.identity);
+            yield return new WaitForSeconds(5.0f);
+        }
     }
 }
